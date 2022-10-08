@@ -1,3 +1,12 @@
+<script setup>
+useHead({
+  title: 'Nuxt App',
+  link: [
+    { rel: 'icon', type: 'image/png', href: '/nuxt.png' }
+  ]
+})
+</script>
+
 <template>
   <div>
     <NuxtWelcome />
