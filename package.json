@@ -9,7 +9,9 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@iconify/json": "^2.1.119",
     "@nuxtjs/eslint-config-typescript": "^11.0.0",
+    "@unocss/nuxt": "^0.45.26",
     "eslint": "^8.24.0",
     "nuxt": "3.0.0-rc.11",
     "typescript": "^4.8.4"
