@@ -1,4 +1,20 @@
-body {
-  margin: 0;
+:root {
+  --c-text: rgba(0,0,0,0.8);
+  --c-bg: #fff;
+}
+
+.dark {
+  --c-text: #ebf4f1;
+  --c-bg: #121518;
+}
+
+.sepia {
+  --c-text: #433422;
+  --c-bg: #f1e7d0;
+}
+
+html, body {
+  color: var(--c-text);
+  background-color: var(--c-bg);
   height: 100vh;
 }

@@ -6,5 +6,8 @@ export default defineNuxtConfig({
   ],
   unocss: {
     preflight: true
+  },
+  colorMode: {
+    classSuffix: ''
   }
 })
