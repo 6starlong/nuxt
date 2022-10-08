@@ -1,7 +1,6 @@
 <template>
   <div>
-    <!-- <NuxtWelcome /> -->
-    <ColorMode />
+    <NuxtWelcome />
   </div>
 </template>
 
