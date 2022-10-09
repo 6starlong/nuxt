@@ -4,7 +4,7 @@ const { title, avatar, github } = useStore()
 
 <template>
   <header class="header">
-    <NuxtLink to="/" class="flex hover:op-60 transition-opacity-250">
+    <NuxtLink to="/" class="flex shrink-0 hover:op-60 transition-opacity-250">
       <img :src="avatar" class="w-6 h-6 rounded-1/2">
       <span class="pl-2 font-600" :title="title">{{ title }}</span>
     </NuxtLink>
@@ -27,7 +27,8 @@ const { title, avatar, github } = useStore()
 <style scoped>
 .header {
   @apply fixed top-0 inset-x-0 z-10 flex justify-between items-center px-4 sm:px-6 lg:px-8;
-  @apply text-lg h-var(--nav-height) backdrop-(saturate-180 blur);
+  @apply text-lg h-var(--nav-height) backdrop-(saturate-180 blur-20);
+  @apply bg-#fff/80 dark:bg-#121518/80 sepia:bg-#eadec2/80;
 }
 
 nav a,

@@ -17,4 +17,5 @@ useHead({
 
 <style>
 @import './assets/main.css';
+@import './assets/prose.css';
 </style>

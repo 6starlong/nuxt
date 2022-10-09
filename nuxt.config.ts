@@ -21,6 +21,7 @@ export default defineNuxtConfig({
   },
   // https://content.nuxtjs.org/api/configuration
   content: {
+    documentDriven: true,
     highlight: {}
   }
 })

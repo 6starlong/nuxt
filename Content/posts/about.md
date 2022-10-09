@@ -1,4 +1,6 @@
-# About page
+---
+title: About page
+---
 
 Let's use a component now!
 
