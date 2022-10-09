@@ -8,11 +8,11 @@ useHead({
 </script>
 
 <template>
-  <main class="py-20 px-10 text-center">
+  <div>
     <NavBar />
-    <NuxtPage />
+    <NuxtPage class="content" />
     <Footer />
-  </main>
+  </div>
 </template>
 
 <style>

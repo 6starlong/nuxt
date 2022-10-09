@@ -13,8 +13,17 @@
   --c-bg: #f1e7d0;
 }
 
+:root {
+  --nav-height: 90px;
+  --page-height: calc(100vh - 49px);
+}
+
 html, body {
   color: var(--c-text);
   background-color: var(--c-bg);
   height: 100vh;
+}
+
+.content {
+  @apply min-h-var(--page-height) pt-var(--nav-height) pb-12 px-10;
 }

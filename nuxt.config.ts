@@ -1,5 +1,6 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
+  // https://modules.nuxtjs.org/
   modules: [
     '@vueuse/nuxt',
     '@pinia/nuxt',
@@ -10,16 +11,16 @@ export default defineNuxtConfig({
   experimental: {
     reactivityTransform: true
   },
+  // https://uno.antfu.me/
   unocss: {
-    // https://uno.antfu.me/
     preflight: true
   },
+  // https://color-mode.nuxtjs.org/
   colorMode: {
-    // https://color-mode.nuxtjs.org/
     classSuffix: ''
   },
+  // https://content.nuxtjs.org/api/configuration
   content: {
-    // https://content.nuxtjs.org/api/configuration
     highlight: {}
   }
 })
