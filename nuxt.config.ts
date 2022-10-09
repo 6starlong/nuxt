@@ -4,15 +4,22 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@pinia/nuxt',
     '@unocss/nuxt',
-    '@nuxtjs/color-mode'
+    '@nuxtjs/color-mode',
+    '@nuxt/content'
   ],
   experimental: {
     reactivityTransform: true
   },
   unocss: {
+    // https://uno.antfu.me/
     preflight: true
   },
   colorMode: {
+    // https://color-mode.nuxtjs.org/
     classSuffix: ''
+  },
+  content: {
+    // https://content.nuxtjs.org/api/configuration
+    highlight: {}
   }
 })

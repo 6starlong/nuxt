@@ -5,18 +5,14 @@ useHead({
     { rel: 'icon', type: 'image/png', href: '/nuxt.png' }
   ]
 })
-
-const name = 'Nuxt'
-const { data } = await useFetch(`/api/hello?name=${name}`)
 </script>
 
 <template>
-  <div>
-    <NuxtWelcome />
-    <div class="fixed top-0 left-0">
-      {{ data }}
-    </div>
-  </div>
+  <main class="py-20 px-10 text-center">
+    <NavBar />
+    <NuxtPage />
+    <Footer />
+  </main>
 </template>
 
 <style>
