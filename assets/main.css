@@ -1,16 +1,22 @@
 :root {
   --c-text: rgba(0,0,0,0.8);
   --c-bg: #fff;
+  --c-scrollbar: #eee;
+  --c-scrollbar-hover: #bbb;
 }
 
 html.dark {
   --c-text: #ebf4f1;
   --c-bg: #121518;
+  --c-scrollbar: #111;
+  --c-scrollbar-hover: #222;
 }
 
 html.sepia {
   --c-text: #433422;
   --c-bg: #eadec2;
+  --c-scrollbar: #3e3020;
+  --c-scrollbar-hover: #6d583e;
   filter: unset;
 }
 
@@ -25,8 +31,23 @@ html, body {
   height: 100vh;
 }
 
-.content {
-  --at-apply: min-h-var(--page-height) pt-var(--nav-height) pb-12 px-4 sm:px-6 lg:px-8;
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar:horizontal {
+  height: 6px;
+}
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: var(--c-bg);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--c-scrollbar);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--c-scrollbar-hover);
 }
 
 .nuxt-progress {
@@ -39,4 +60,8 @@ html, body {
   transition: width 0.1s, height 0.4s, opacity 0.4s;
   background: repeating-linear-gradient(to right,#00dc82 0%,#34cdfe 50%,#0047e1 100%);
   z-index: 999999;
+}
+
+.content {
+  --at-apply: min-h-var(--page-height) pt-var(--nav-height) pb-12 px-4 sm:px-6 lg:px-8;
 }
