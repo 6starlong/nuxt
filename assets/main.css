@@ -28,3 +28,15 @@ html, body {
 .content {
   --at-apply: min-h-var(--page-height) pt-var(--nav-height) pb-12 px-4 sm:px-6 lg:px-8;
 }
+
+.nuxt-progress {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  width: 0%;
+  opacity: 1;
+  transition: width 0.1s, height 0.4s, opacity 0.4s;
+  background: repeating-linear-gradient(to right,#00dc82 0%,#34cdfe 50%,#0047e1 100%);
+  z-index: 999999;
+}

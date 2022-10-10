@@ -9,6 +9,7 @@ useHead({
 
 <template>
   <div>
+    <NuxtProgress />
     <NavBar />
     <NuxtPage class="content" />
     <Footer />
