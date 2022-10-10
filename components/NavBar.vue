@@ -26,13 +26,13 @@ const { title, avatar, github } = useStore()
 
 <style scoped>
 .header {
-  @apply fixed top-0 inset-x-0 z-10 flex justify-between items-center px-4 sm:px-6 lg:px-8;
-  @apply text-lg h-var(--nav-height) backdrop-(saturate-180 blur-20);
-  @apply bg-#fff/80 dark:bg-#121518/80 sepia:bg-#eadec2/80;
+  --at-apply: fixed top-0 inset-x-0 z-10 flex justify-between items-center px-4 sm:px-6 lg:px-8;
+  --at-apply: text-lg h-var(--nav-height) backdrop-(saturate-180 blur-20);
+  --at-apply: bg-#fff/80 dark:bg-#121518/80 sepia:bg-#eadec2/80;
 }
 
 nav a,
 nav button {
-  @apply op-60 hover:op-100 transition-opacity-250;
+  --at-apply: op-60 hover:op-100 transition-opacity-250;
 }
 </style>

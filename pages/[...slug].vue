@@ -1,15 +1,13 @@
 <script setup lang="ts">
 const route = useRoute()
 const router = useRouter()
-
-console.log(useContent())
 </script>
 
 <template>
   <div>
     <ContentDoc>
       <template #default="{ doc }">
-        <div v-if="doc.image" class="px-4 sm:px-6 lg:px-8">
+        <div v-if="doc.image">
           <img :src="doc.image" class="w-1/1 h-75 object-cover rounded-lg">
         </div>
 

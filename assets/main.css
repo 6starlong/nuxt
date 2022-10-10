@@ -26,5 +26,5 @@ html, body {
 }
 
 .content {
-  @apply min-h-var(--page-height) pt-var(--nav-height) pb-12 px-4 sm:px-6 lg:px-8;
+  --at-apply: min-h-var(--page-height) pt-var(--nav-height) pb-12 px-4 sm:px-6 lg:px-8;
 }
