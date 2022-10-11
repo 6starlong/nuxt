@@ -1,4 +1,5 @@
 :root {
+  --c-primary: #10b981;
   --c-text: rgba(0,0,0,0.8);
   --c-bg: #fff;
   --c-scrollbar: #eee;

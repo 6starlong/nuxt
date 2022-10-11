@@ -2,7 +2,8 @@
 title: Hello World
 date: 2022-10-08T00:00:02.003Z
 duration: 1min
-image: https://starlong.xyz/images/hero.jpg
+image:
+  src: https://starlong.xyz/images/hero.jpg
 ---
 
 第一段内容详情
