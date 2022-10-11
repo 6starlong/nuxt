@@ -37,13 +37,13 @@ export default defineConfig({
     ['icon-btn', 'inline-block cursor-pointer select-none opacity-75 transition duration-200 ease-in-out hover:opacity-100 hover:text-teal-600']
   ],
   variants: [
-    // colorMode sepia:
+    // colorMode cafe:
     (matcher) => {
-      if (!matcher.startsWith('sepia:')) { return matcher }
+      if (!matcher.startsWith('cafe:')) { return matcher }
       return {
-        // slice `sepia:` prefix and passed to the next variants and rules
-        matcher: matcher.slice(6),
-        selector: s => `.sepia ${s}`
+        // slice `cafe:` prefix and passed to the next variants and rules
+        matcher: matcher.slice(5),
+        selector: s => `.cafe ${s}`
       }
     }
   ]

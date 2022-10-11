@@ -19,6 +19,6 @@ const { title, github } = useStore()
 
 <style scoped>
 .footer {
-  --at-apply: border-t border-#f5f5f5 dark:border-#181818 sepia:border-#e5d5c5;
+  --at-apply: border-t border-#f5f5f5 dark:border-#181818 cafe:border-#e5d5c5;
 }
 </style>
