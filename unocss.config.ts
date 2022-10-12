@@ -28,7 +28,7 @@ export default defineConfig({
   ],
   transformers: [
     // use --at-apply https://github.com/unocss/unocss/issues/809
-    transformerDirectives({ }),
+    transformerDirectives(),
     transformerVariantGroup()
   ],
   shortcuts: [

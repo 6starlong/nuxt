@@ -23,5 +23,8 @@ export default defineNuxtConfig({
   content: {
     documentDriven: true,
     highlight: {}
+  },
+  nitro: {
+    plugins: ['~/server/plugins/content.ts']
   }
 })
