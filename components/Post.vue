@@ -131,8 +131,8 @@ onMounted(() => {
               Table of Contents
             </div>
             <ul v-if="toc && toc.links">
-              <li v-for="(link, idx) in toc.links" :key="link.text">
-                <a :href="`#${link.id}`" class="outline-link" :class="idx === 0 && 'active'">
+              <li v-for="(link, index) in toc.links" :key="link.text">
+                <a :href="`#${link.id}`" :class="['outline-link', index === 0 && 'active' ]">
                   {{ link.text }}
                 </a>
                 <ul v-if="link.children">
