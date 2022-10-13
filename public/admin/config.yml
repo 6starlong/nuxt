@@ -1,0 +1,30 @@
+backend:
+  name: git-gateway
+  repo: 6starlong/nuxt-app
+  branch: main
+  squash_merges: true
+  commit_messages:
+    create: 'feat(cms): create {{path}}'
+    update: 'chore(cms): update {{path}}'
+    delete: 'chore(cms): delete {{path}}'
+    uploadMedia: 'chore(cms): upload {{path}}'
+    deleteMedia: 'chore(cms): delete {{path}}'
+publish_mode: editorial_workflow
+media_folder: public/images
+public_folder: /images
+display_url: https://nuxt.starlong.xyz
+locale: zh_Hans
+collections:
+  - name: posts
+    label: Posts
+    folder: content/posts
+    create: true
+    slug: '{{slug}}'
+    preview_path: posts/{{slug}}
+    fields:
+      - { label: '标题', name: 'title', widget: 'string' }
+      - { label: '横幅', name: 'image', widget: 'image', required: false }
+      - { label: '标签', name: 'tags', widget: 'list', required: false }
+      - { label: '创建时间', name: 'date', widget: 'datetime' }
+      - { label: '时长', name: 'duration', widget: 'number', required: false }
+      - { label: '內容', name: 'body', widget: 'markdown' }

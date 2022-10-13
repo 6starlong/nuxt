@@ -88,8 +88,8 @@ onMounted(() => {
 
 <template>
   <div>
-    <div v-if="page.image?.src">
-      <img :src="page.image.src" class="w-1/1 h-75 object-cover rounded-lg">
+    <div v-if="page.image">
+      <img :src="page.image" class="w-1/1 h-75 object-cover rounded-lg">
     </div>
 
     <div ref="content" class="relative w-full grid grid-cols-12">
