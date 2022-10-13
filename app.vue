@@ -1,6 +1,6 @@
 <script setup>
 useHead({
-  title: 'Nuxt App',
+  title: useStore().title,
   link: [
     { rel: 'icon', type: 'image/png', href: '/nuxt.png' }
   ]
@@ -8,7 +8,7 @@ useHead({
 </script>
 
 <template>
-  <div>
+  <div id="app">
     <NuxtProgress />
     <NavBar />
     <NuxtPage class="content" />

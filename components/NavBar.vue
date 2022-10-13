@@ -17,9 +17,9 @@ const { title, avatar, github } = useStore()
 
       <ColorMode />
 
-      <a :href="github" target="_blank" title="GitHub">
+      <NuxtLink :to="github" target="_blank" title="GitHub">
         <div i-uil-github-alt />
-      </a>
+      </NuxtLink>
     </nav>
   </header>
 </template>
