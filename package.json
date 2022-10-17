@@ -1,5 +1,6 @@
 {
   "private": true,
+  "packageManager": "pnpm@7.13.4",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -9,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@gr2m/gray-matter": "4.0.3-with-pr-137",
     "@iconify/json": "^2.1.119",
     "@nuxt/content": "^2.1.1",
     "@nuxtjs/color-mode": "^3.1.8",
@@ -24,6 +26,7 @@
     "js-base64": "^3.7.2",
     "nuxt": "3.0.0-rc.11",
     "pinia": "^2.0.22",
+    "pnpm": "^7.13.4",
     "typescript": "^4.8.4"
   }
 }

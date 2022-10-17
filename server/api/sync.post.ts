@@ -1,7 +1,13 @@
 /* eslint-disable no-console */
 import { Octokit } from '@octokit/core'
 import { Base64 } from 'js-base64'
-import matter from 'gray-matter'
+/**
+ * Nitro Bug：https://github.com/nuxt/framework/issues/7105
+ * 不同的模块引入共同的包时，nitro 构建 server 会尝试使用最新版本。
+ * 这导致 gray-matter 所使用的 js-yaml 版本出现兼容问题。
+ * 使用支持 js-yaml 最新版本的 @gr2m/gray-matter 代替 gray-matter。
+ * */
+import matter from '@gr2m/gray-matter'
 
 const { GITHUB_TOKEN } = process.env
 const { request } = new Octokit({ auth: GITHUB_TOKEN })
@@ -42,17 +48,9 @@ async function run (syncData: any) {
     path
   }).catch(() => ({ data: undefined }))
 
-  if (contents) {
-    const { data } = matter(Base64.decode(contents.content))
-    console.log(data, 2)
-
-    syncData = Object.assign(data, { title, date: new Date(data.date || date).toISOString() })
-  } else {
-    syncData = { title, date }
-  }
-
-  const frontmatter = Object.keys(syncData).map(key => `${key}: ${syncData[key]}`).join('\n')
-  const content = `---\n${frontmatter}\n---\n\n${body}`
+  const metaData = contents ? matter(Base64.decode(contents.content)).data : {}
+  const frontmatter = Object.assign(metaData, { title, date: new Date(metaData.date || date).toISOString() })
+  const content = matter!.stringify(body, frontmatter)
 
   await request('PUT /repos/{owner}/{repo}/contents/{path}', {
     owner,
