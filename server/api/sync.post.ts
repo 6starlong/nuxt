@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { Octokit } from '@octokit/core'
 import { Base64 } from 'js-base64'
 /**
@@ -14,6 +13,7 @@ const { request } = new Octokit({ auth: GITHUB_TOKEN })
 
 const owner = '6starlong'
 const repo = 'nuxt-app'
+const branch = 'main'
 const AUTHOR = {
   name: 'Starlong',
   email: 'starlong.lu@gmail.com'
@@ -23,7 +23,6 @@ export default defineEventHandler(async (event: any) => {
   try {
     console.info('Sync start! 🤺🤺🤺')
 
-    // 使用正文处理请求
     const { data } = await useBody(event)
     await run(data)
 
@@ -34,6 +33,7 @@ export default defineEventHandler(async (event: any) => {
   }
 })
 
+// GITHUB REST API https://docs.github.com/cn/rest
 async function run (syncData: any) {
   if (!syncData.slug) {
     return Promise.reject(new Error('slug does not exist!'))
@@ -41,6 +41,7 @@ async function run (syncData: any) {
 
   const { title, slug, body, created_at: date } = syncData
   const path = `content/posts/${slug}.md`
+  const reference = `cms/posts/${slug}`
 
   const { data: contents }: any = await request('GET /repos/{owner}/{repo}/contents/{path}', {
     owner,
@@ -52,18 +53,91 @@ async function run (syncData: any) {
   const frontmatter = Object.assign(metaData, { title, date: new Date(metaData.date || date).toISOString() })
   const content = matter!.stringify(body, frontmatter)
 
-  await request('PUT /repos/{owner}/{repo}/contents/{path}', {
+  const { data: blob } = await request('POST /repos/{owner}/{repo}/git/blobs', {
     owner,
     repo,
-    path,
-    sha: contents?.sha || null,
-    message: !contents
-      ? `feat(sync): create ${path}`
-      : `chore(sync): update ${path}`,
-    committer: { ...AUTHOR },
-    content: Base64.encode(content)
+    content: Base64.encode(content),
+    encoding: 'base64'
   })
 
-  console.info(content)
+  const { data: baseBranch } = await request('GET /repos/{owner}/{repo}/branches/{branch}', {
+    owner,
+    repo,
+    branch
+  })
+
+  const { data: trees } = await request('POST /repos/{owner}/{repo}/git/trees', {
+    owner,
+    repo,
+    base_tree: baseBranch.commit.sha,
+    tree: [{
+      path,
+      mode: '100644',
+      type: 'blob',
+      sha: blob.sha
+    }]
+  })
+
+  const message = !contents
+    ? 'feat(sync): new blog post'
+    : 'chore(sync): update blog post'
+
+  const { data: commits } = await request('POST /repos/{owner}/{repo}/git/commits', {
+    owner,
+    repo,
+    author: { ...AUTHOR },
+    message,
+    parents: [baseBranch.commit.sha],
+    tree: trees.sha
+  })
+
+  const { data: refs } = await request('GET /repos/{owner}/{repo}/git/refs/heads/{ref}', {
+    owner,
+    repo,
+    ref: reference
+  }).catch(() => ({ data: undefined }))
+
+  if (refs) {
+    await request('POST /repos/{owner}/{repo}/git/refs/heads/{ref}', {
+      owner,
+      repo,
+      ref: reference,
+      sha: commits.sha,
+      force: true
+    })
+  } else {
+    await request('POST /repos/{owner}/{repo}/git/refs', {
+      owner,
+      repo,
+      ref: `refs/heads/${reference}`,
+      sha: commits.sha
+    })
+  }
+
+  const { data: pulls } = await request('GET /repos/{owner}/{repo}/pulls', {
+    owner,
+    repo,
+    base: branch,
+    state: 'open'
+  })
+
+  if (!pulls.some(i => i.head.ref === `${reference}`)) {
+    const { data: pull } = await request('POST /repos/{owner}/{repo}/pulls', {
+      owner,
+      repo,
+      base: branch,
+      body: '由语雀同步至 Netlify CMS',
+      head: `6starlong:${reference}`,
+      title: message
+    })
+
+    await request('POST /repos/{owner}/{repo}/issues/{number}/labels', {
+      owner,
+      repo,
+      number: pull.number,
+      labels: ['netlify-cms/pending_review']
+    })
+  }
+
   console.info('Sync succeeded! 🎉🎉🎉')
 }
