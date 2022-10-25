@@ -87,12 +87,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
-    <div v-if="page.image">
-      <img :src="page.image" class="w-1/1 h-75 object-cover rounded-lg">
-    </div>
+  <div class="container-fluid">
+    <img v-if="page.image" :src="page.image" class="w-1/1 h-75 object-cover rounded-lg">
 
-    <div ref="content" class="relative w-full grid grid-cols-12">
+    <div ref="content" class="relative grid grid-cols-12">
       <div class="col-span-12 lg:col-span-8 flex lg:justify-end">
         <article class="prose flex-1 pt-8">
           <div v-if="page.tags" mb-5>
@@ -104,19 +102,19 @@ onMounted(() => {
           <div v-if="page.title" class="mb-8">
             <h1>{{ page.title }}</h1>
 
-            <p v-if="page.date" class="opacity-50 !-mt-5">
+            <p v-if="page.date" class="op-50 !-mt-5">
               {{ useDateFormat(page.date, 'YYYY-MM-DD').value }}
               <span v-if="page.duration"> · {{ page.duration }}</span>
               <span v-if="page.lastUpdated" ml-2> Updated on {{ useTimeAgo(page.lastUpdated).value }}</span>
             </p>
           </div>
 
-          <ContentRenderer :value="page" />
+          <ContentRenderer :value="page" class="animate" />
 
           <div class="my-8">
             <NuxtLink
               :to="route.path.split('/').slice(0, -1).join('/') || '/'"
-              class="font-mono opacity-50 hover:opacity-75"
+              class="font-mono op-50 hover:op-75"
             >
               ..cd
             </NuxtLink>
@@ -125,14 +123,14 @@ onMounted(() => {
       </div>
 
       <div class="col-span-4 hidden lg:block">
-        <div v-if="toc.links.length" class="sticky top-var(--nav-height) inset-x-0 grid justify-center">
+        <div v-if="toc.links.length" class="sticky top-nav inset-x-0 grid grid-x-center">
           <div class="pt-8 max-w-50 space-y-2">
-            <div class="text-sm font-500">
+            <div class="text-sm fw500">
               Table of Contents
             </div>
             <ul v-if="toc && toc.links">
               <li v-for="(link, index) in toc.links" :key="link.text">
-                <a :href="`#${link.id}`" :class="['outline-link', index === 0 && 'active' ]">
+                <a :href="`#${link.id}`" :class="['outline-link', index === 0 && 'active']">
                   {{ link.text }}
                 </a>
                 <ul v-if="link.children">
@@ -153,11 +151,9 @@ onMounted(() => {
 
 <style scoped>
 .outline-link {
-  --at-apply: op-50 hover:op-100 transition-400 text-3.25 inline-block w-full truncate;
+  --at-apply: inline-block w-full text-13px truncate op-50 hover:op-100 transition-350;
 }
-
 .outline-link.active {
-  opacity: 1;
-  color: var(--c-primary);
+  --at-apply: op-100 color-primary;
 }
 </style>

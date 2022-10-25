@@ -1,30 +1,9 @@
 .prose {
-  --fg: #555;
-  --fg-deep: #222;
-  --fg-deeper: #000;
-  --fg-bg: #292d3e;
-}
-
-html.dark .prose {
-  --fg: #bbb;
-  --fg-deep: #ddd;
-  --fg-deeper: #fff;
-  --fg-bg: #0e0e0e;
-}
-
-html.cafe .prose {
-  --fg: #433422;
-  --fg-deep: #3e3020;
-  --fg-deeper: #0e0b07;
-  --fg-bg: #4a3a2a;
-}
-
-.prose {
-  color: var(--fg);
   max-width: 65ch;
   font-size: 1rem;
   line-height: 1.75;
   font-family: Inter;
+  --at-apply: color-text;
 }
 
 .prose pre {
@@ -32,11 +11,11 @@ html.cafe .prose {
   font-size: 1.05em;
   line-height: 1.4;
   margin: 0.5em 0;
-  background-color: var(--fg-bg);
+  --at-apply: bg-code;
 }
 
 .prose code {
-  color: var(--fg-deep);
+  color: inherit;
   font-weight: 600;
   font-size: 0.875em;
 }
@@ -45,8 +24,8 @@ html.cafe .prose {
   border-radius: 4px;
   padding: 3px 6px;
   color: #fff;
-  background-color: var(--fg-bg);
   transition: color .5s,background-color .5s;
+  --at-apply: bg-code;
 }
 
 .prose :not(pre)>code::before, 
@@ -61,20 +40,20 @@ html.cafe .prose {
 }
 
 .prose a {
-  color: var(--fg-deeper);
   text-decoration: none;
   font-weight: 500;
   border-bottom: 1px solid rgba(125, 125, 125, 0.3);
   transition: border 0.3s ease-in-out;
+  --at-apply: color-base;
 }
 
 .prose a:hover {
-  border-color: var(--fg);
+  border-color: currentColor;
 }
 
 .prose strong {
-  color: var(--fg-deep);
   font-weight: 600;
+  --at-apply: color-base;
 }
 
 .prose hr {
@@ -84,7 +63,7 @@ html.cafe .prose {
 }
 
 .prose h1 {
-  color: var(--fg-deeper);
+  --at-apply: color-base;
   font-weight: 800;
   font-size: 2.25em;
   margin-top: 0;
@@ -93,7 +72,7 @@ html.cafe .prose {
 }
 
 .prose h2 {
-  color: var(--fg-deep);
+  color: inherit;
   font-weight: 700;
   font-size: 1.5em;
   margin-top: 2em;
@@ -122,7 +101,7 @@ html.cafe .prose {
   top: 0;
   left: 2px;
   width: calc(100% - 4px);
-  border-bottom:1px dashed var(--fg);
+  border-bottom: 1px dashed;
 }
 
 .prose :where(h1,h2,h3,h4,h5,h6) > a:hover::after {

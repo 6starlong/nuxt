@@ -28,8 +28,8 @@ useHead({
     <div class="max-w-520px text-center z-20">
       <h1 class="text-7xl sm:text-9xl font-medium mb-8" v-text="statusCode" />
       <p class="text-xl px-8 sm:px-0 sm:text-4xl font-light mb-16 leading-tight" v-text="statusMessage" />
-      <div class="w-full flex items-center justify-center">
-        <NuxtLink to="/" class="gradient-border sm:text-xl py-2 px-4 sm:py-3 sm:px-6">
+      <div class="w-full flex flex-center">
+        <NuxtLink to="/" class="gradient-border sm:text-xl py-2 sm:py-3 px-4 sm:px-6">
           {{ backHome }}
         </NuxtLink>
       </div>
