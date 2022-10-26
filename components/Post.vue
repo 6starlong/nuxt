@@ -111,7 +111,7 @@ onMounted(() => {
 
           <ContentRenderer :value="page" class="animate" />
 
-          <div class="my-8">
+          <div class="my-8 animate">
             <NuxtLink
               :to="route.path.split('/').slice(0, -1).join('/') || '/'"
               class="font-mono op-50 hover:op-75"

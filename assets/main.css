@@ -1,5 +1,5 @@
 body {
-  --at-apply: color-base bg-base h-screen;
+  @apply color-base bg-base h-screen;
 }
 
 ::-webkit-scrollbar {
@@ -10,13 +10,13 @@ body {
 }
 ::-webkit-scrollbar-track,
 ::-webkit-scrollbar-corner {
-  --at-apply: bg-base rounded-10px;
+  @apply bg-base rounded-10px;
 }
 ::-webkit-scrollbar-thumb {
-  --at-apply: bg-scrollbar rounded-10px;
+  @apply bg-scrollbar rounded-10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  --at-apply: bg-scrollbar-hover;
+  @apply bg-scrollbar-hover;
 }
 
 .nuxt-progress {
@@ -49,5 +49,5 @@ body {
 }
 
 .content {
-  --at-apply: pt-nav min-h-[calc(100vh-50px)];
+  @apply min-h-[calc(100vh-50px)] pt-nav;
 }

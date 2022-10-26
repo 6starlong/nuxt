@@ -74,7 +74,8 @@ export default defineConfig({
     })
   ],
   transformers: [
-    // use --at-apply https://github.com/unocss/unocss/issues/809#issuecomment-1118632177
+    // Vue's css compiler does not understand the @apply syntax.
+    // https://github.com/unocss/unocss/issues/809#issuecomment-1118632177
     transformerDirectives(),
     transformerVariantGroup()
   ]

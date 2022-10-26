@@ -20,6 +20,11 @@ onMounted(() => {
     </NuxtLink>
 
     <nav class="grid grid-flow-col items-center gap-5">
+      <NuxtLink to="/" flex="~ y-center">
+        <div i-ri:home-6-line />
+        <span class="ml-1 fw500">Home</span>
+      </NuxtLink>
+
       <NuxtLink to="/posts" flex="~ y-center">
         <div i-ri:article-line />
         <span class="ml-1 fw500">Blog</span>

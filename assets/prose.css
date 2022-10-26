@@ -3,7 +3,7 @@
   font-size: 1rem;
   line-height: 1.75;
   font-family: Inter;
-  --at-apply: color-text;
+  @apply color-text;
 }
 
 .prose pre {
@@ -11,7 +11,7 @@
   font-size: 1.05em;
   line-height: 1.4;
   margin: 0.5em 0;
-  --at-apply: bg-code;
+  @apply bg-code;
 }
 
 .prose code {
@@ -25,7 +25,7 @@
   padding: 3px 6px;
   color: #fff;
   transition: color .5s,background-color .5s;
-  --at-apply: bg-code;
+  @apply bg-code;
 }
 
 .prose :not(pre)>code::before, 
@@ -44,7 +44,7 @@
   font-weight: 500;
   border-bottom: 1px solid rgba(125, 125, 125, 0.3);
   transition: border 0.3s ease-in-out;
-  --at-apply: color-base;
+  @apply color-base;
 }
 
 .prose a:hover {
@@ -53,7 +53,7 @@
 
 .prose strong {
   font-weight: 600;
-  --at-apply: color-base;
+  @apply color-base;
 }
 
 .prose hr {
@@ -63,7 +63,7 @@
 }
 
 .prose h1 {
-  --at-apply: color-base;
+  @apply color-base;
   font-weight: 800;
   font-size: 2.25em;
   margin-top: 0;
