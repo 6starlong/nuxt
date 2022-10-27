@@ -9,7 +9,9 @@ export default defineNuxtConfig({
     '@nuxt/content'
   ],
   experimental: {
-    reactivityTransform: true
+    reactivityTransform: true,
+    // https://github.com/nuxt/framework/issues/8352
+    inlineSSRStyles: false
   },
   // https://uno.antfu.me/
   unocss: {
