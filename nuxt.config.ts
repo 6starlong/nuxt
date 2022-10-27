@@ -22,7 +22,15 @@ export default defineNuxtConfig({
   // https://content.nuxtjs.org/api/configuration
   content: {
     documentDriven: true,
-    highlight: {}
+    highlight: {
+      theme: 'one-dark-pro'
+    },
+    watch: {
+      ws: {
+        // https://github.com/nuxt/content/issues/1631
+        hostname: 'localhost'
+      }
+    }
   },
   nitro: {
     plugins: ['~/server/plugins/content.ts']
