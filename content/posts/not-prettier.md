@@ -2,7 +2,7 @@
 title: 使用 Eslint、Stylelint 代替 Prettier
 date: 2022-11-03T15:04:20.000Z
 duration: 4min
-image: https://user-images.githubusercontent.com/45755401/200526082-4201e530-29f9-4373-ab3b-b08d865b46e5.png
+image: https://image-static.segmentfault.com/163/666/1636665766-dba312d6f008d2eb
 tags:
   - Prettier
   - Eslint
