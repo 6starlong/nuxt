@@ -23,8 +23,8 @@ collections:
     preview_path: posts/{{slug}}
     fields:
       - { label: '标题', name: 'title', widget: 'string' }
+      - { label: '创建时间', name: 'date', widget: 'datetime' }
+      - { label: '时长', name: 'duration', widget: 'string', required: false }
       - { label: '横幅', name: 'image', widget: 'image', required: false }
       - { label: '标签', name: 'tags', widget: 'list', required: false }
-      - { label: '创建时间', name: 'date', widget: 'datetime' }
-      - { label: '时长', name: 'duration', widget: 'number', required: false }
       - { label: '內容', name: 'body', widget: 'markdown' }

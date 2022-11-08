@@ -17,26 +17,28 @@ onMounted(() => {
     return anchor.parentElement!.offsetTop
   }
 
-  const { y } = useScroll(document, {
-    onScroll () {
-      for (let i = 0; i < anchors.length; i++) {
-        const scrollTop = y.value
-        const anchor = anchors[i] as HTMLAnchorElement
-        const nextAnchor = anchors[i + 1] as HTMLAnchorElement
+  if (anchors.length && links.length) {
+    const { y } = useScroll(document, {
+      onScroll () {
+        for (let i = 0; i < anchors.length; i++) {
+          const scrollTop = y.value
+          const anchor = anchors[i] as HTMLAnchorElement
+          const nextAnchor = anchors[i + 1] as HTMLAnchorElement
 
-        if (
-          (i === 0 && scrollTop < getAnchorTop(anchor)) ||
+          if (
+            (i === 0 && scrollTop < getAnchorTop(anchor)) ||
           (i === anchors.length - 1 && scrollTop > getAnchorTop(anchor)) ||
           (scrollTop > getAnchorTop(anchor) && scrollTop < getAnchorTop(nextAnchor))
-        ) {
-          const index = links.findIndex(el => el.hash === anchors[i].hash)
-          links[index - 1]?.classList.remove('active')
-          links[index + 1]?.classList.remove('active')
-          links[index].classList.add('active')
+          ) {
+            const index = links.findIndex(el => el.hash === anchors[i].hash)
+            links[index - 1]?.classList.remove('active')
+            links[index + 1]?.classList.remove('active')
+            links[index].classList.add('active')
+          }
         }
       }
-    }
-  })
+    })
+  }
 
   const navigate = () => {
     const el = document.querySelector(decodeURIComponent(location.hash)) as HTMLDivElement
@@ -123,12 +125,12 @@ onMounted(() => {
       </div>
 
       <div class="col-span-4 hidden lg:block">
-        <div v-if="toc.links.length" class="sticky top-nav inset-x-0 grid grid-x-center">
+        <div v-if="toc?.links.length" class="sticky top-nav inset-x-0 grid grid-x-center">
           <div class="pt-8 max-w-50 space-y-2">
             <div class="text-sm fw500">
               Table of Contents
             </div>
-            <ul v-if="toc && toc.links">
+            <ul>
               <li v-for="(link, index) in toc.links" :key="link.text">
                 <a :href="`#${link.id}`" :class="['outline-link', index === 0 && 'active']">
                   {{ link.text }}

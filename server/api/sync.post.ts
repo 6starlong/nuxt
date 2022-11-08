@@ -39,7 +39,7 @@ async function run (syncData: any) {
     return Promise.reject(new Error('slug does not exist!'))
   }
 
-  const { title, slug, body, created_at: date } = syncData
+  const { title, slug, body, created_at: date, word_count: wordCount } = syncData
   const path = `content/posts/${slug}.md`
   const reference = `cms/posts/${slug}`
 
@@ -50,8 +50,20 @@ async function run (syncData: any) {
   }).catch(() => ({ data: undefined }))
 
   const metaData = contents ? matter(Base64.decode(contents.content)).data : {}
-  const frontmatter = Object.assign(metaData, { title, date: new Date(metaData.date || date).toISOString() })
-  const content = matter!.stringify(body, frontmatter)
+  const frontmatter = Object.assign(metaData, {
+    title,
+    date: new Date(metaData.date || date).toISOString(),
+    duration: `${Math.round(wordCount / 300)}min`
+  })
+  const content = matter!
+    .stringify(body, frontmatter)
+    .replace(/date: '(.*)'/, 'date: $1')
+    .replace(/\n---\n(\S+)/, '\n---\n\n$1')
+    .replace(/<a name=".{5}"><\/a>\n(.*)\n/g, '\n$1\n\n')
+    .replace(/\n\n+/g, '\n\n')
+    .replace(/\*\*(\S+)(\s+)\*\*/g, '**$1** ')
+    .replace(/(\S+)\n```([^\n])/g, '$1\n\n```$2')
+    .replace(/```\n(\S+)/g, '```\n\n$1')
 
   const { data: blob } = await request('POST /repos/{owner}/{repo}/git/blobs', {
     owner,
