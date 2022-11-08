@@ -2,6 +2,11 @@
 title: 使用 Eslint、Stylelint 代替 Prettier
 date: 2022-11-03T15:04:20.000Z
 duration: 4min
+image: https://user-images.githubusercontent.com/45755401/200526082-4201e530-29f9-4373-ab3b-b08d865b46e5.png
+tags:
+  - Prettier
+  - Eslint
+  - Stylelint
 ---
 
 通常我的项目中都会集成 [Prettier](https://prettier.io/) 格式化工具，它为我节省了很多时间，不用过多的去关心代码格式，并在多个项目中保持一致性。Prettier 做了很多硬性的风格决策，仅提供最小的配置接口，这使得它非常易于使用。
