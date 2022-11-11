@@ -5,17 +5,17 @@
         <NuxtLink v-for="post in list" :key="post._path" :to="post._path" class="block max-w-900px mx-auto">
           <div class="post-card h-60 shadow group">
             <div class="cover" bg="cover center" :style="{ backgroundImage: post.image && `url(${post.image})` }" />
-            <div class="cover " :class="post.image ? 'bg-#121518/25' : 'bg-code'" />
+            <div class="cover " :class="post.image ? 'bg-black/25' : 'bg-code'" />
             <div
-              class="relative z-1 p-8 h-full sm:max-w-1/2 mx-auto text-center grid place-content-center transition-transform-350 group-hover:translate-y--1"
+              class="relative z-1 p-8 h-full sm:max-w-1/2 mx-auto text-center color-[#ebebeb] grid place-content-center transition-transform-350 group-hover:translate-y--1"
             >
               <h2 class="post-card-title color-[#fafafa]">
                 {{ post.title }}
               </h2>
-              <p class="line-clamp-2 mb-1 color-[#a1a1a1]">
+              <p class="line-clamp-2 mb-1">
                 {{ post.description }}
               </p>
-              <p v-if="post.date" class="text-sm color-[#a1a1a1]">
+              <p v-if="post.date" class="text-sm">
                 {{ useDateFormat(post.date, 'YYYY-MM-DD').value }}
                 <span v-if="post.duration"> · {{ post.duration }}</span>
                 <span v-if="post.lastUpdated" class="ml-2 lt-sm:hidden">

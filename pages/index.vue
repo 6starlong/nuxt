@@ -17,7 +17,7 @@ const { y: scrollY } = useWindowScroll()
     </section>
 
     <section class="relative py-10 md:py-20 bg-base">
-      <ContentList v-slot="{ list }" :query="{ path: '/posts', sort: { lastChanged: -1 } }">
+      <ContentList v-slot="{ list }" :query="{ path: '/posts', sort: { lastUpdated: -1 } }">
         <div class="container-lg grid gap-8 animate" grid-cols="1 sm:2 lg:3">
           <NuxtLink v-for="post in list" :key="post._path" :to="post._path">
             <div class="post-card group">

@@ -2,8 +2,7 @@
   max-width: 65ch;
   font-size: 1rem;
   line-height: 1.75;
-  font-family: Inter;
-  @apply color-text;
+  @apply color-text font-[Inter] w-full;
 }
 
 .prose pre {
@@ -11,7 +10,7 @@
   font-size: 1.05em;
   line-height: 1.4;
   margin: 0.5em 0;
-  @apply bg-code;
+  @apply bg-code flex flex-1;
 }
 
 .prose code {
@@ -20,18 +19,18 @@
   font-size: 0.875em;
 }
 
-.prose :not(pre)>code {
+.prose :not(pre) > code {
   border-radius: 4px;
   padding: 3px 6px;
   color: #fff;
-  transition: color .5s,background-color .5s;
+  transition: color .5s, background-color .5s;
   @apply bg-code;
 }
 
-.prose :not(pre)>code::before, 
-.prose :not(pre)>code::after {
+.prose :not(pre) > code::before,
+.prose :not(pre) > code::after {
   content: unset;
-} 
+}
 
 .prose img {
   width: 100%;
@@ -59,7 +58,7 @@
 .prose hr {
   width: 50px;
   margin: 2em auto;
-  border: 1px solid rgba(125,125,125,0.3);
+  border: 1px solid rgba(125, 125, 125, 0.3);
 }
 
 .prose h1 {
@@ -89,17 +88,17 @@
   line-height: 1.6;
 }
 
-.prose :where(blockquote):not(:where(.not-prose,.not-prose *)){
+.prose :where(blockquote):not(:where(.not-prose, .not-prose *)) {
   border-left: .15em solid currentColor;
   opacity: .8;
 }
 
-.prose :where(h1,h2,h3,h4,h5,h6) > a {
+.prose :where(h1, h2, h3, h4, h5, h6) > a {
   position: relative;
   border: none;
 }
 
-.prose :where(h1,h2,h3,h4,h5,h6) > a:hover::before {
+.prose :where(h1, h2, h3, h4, h5, h6) > a:hover::before {
   content: '';
   height: calc(100% + 2px);
   position: absolute;
@@ -109,9 +108,9 @@
   border-bottom: 1px dashed;
 }
 
-.prose :where(h1,h2,h3,h4,h5,h6) > a:hover::after {
-  --un-icon: url('https://api.iconify.design/akar-icons/link-chain.svg') ;
-  content:'';
+.prose :where(h1, h2, h3, h4, h5, h6) > a:hover::after {
+  --un-icon: url('https://api.iconify.design/akar-icons/link-chain.svg');
+  content: '';
   mask: var(--un-icon) no-repeat;
   mask-size: 100% 100%;
   background-color: currentColor;
@@ -121,4 +120,3 @@
   top: 0.25em;
   right: -1em;
 }
-

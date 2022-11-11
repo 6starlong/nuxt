@@ -8,32 +8,28 @@ onMounted(() => {
   const anchors = [].slice.call(
     content.value!.querySelectorAll('h2 > a, h3 > a')
   ) as HTMLAnchorElement[]
-
   const links = [].slice.call(
-    content.value!.querySelectorAll('ul > li > a')
+    content.value!.querySelectorAll('ul > li > a.outline-link')
   ) as HTMLAnchorElement[]
 
-  const getAnchorTop = (anchor: HTMLAnchorElement): number => {
-    return anchor.parentElement!.offsetTop
-  }
-
   if (anchors.length && links.length) {
-    const { y } = useScroll(document, {
+    useScroll(document, {
       onScroll () {
-        for (let i = 0; i < anchors.length; i++) {
-          const scrollTop = y.value
-          const anchor = anchors[i] as HTMLAnchorElement
-          const nextAnchor = anchors[i + 1] as HTMLAnchorElement
+        // 向下滚动 directions.bottom
 
-          if (
-            (i === 0 && scrollTop < getAnchorTop(anchor)) ||
-          (i === anchors.length - 1 && scrollTop > getAnchorTop(anchor)) ||
-          (scrollTop > getAnchorTop(anchor) && scrollTop < getAnchorTop(nextAnchor))
-          ) {
-            const index = links.findIndex(el => el.hash === anchors[i].hash)
-            links[index - 1]?.classList.remove('active')
-            links[index + 1]?.classList.remove('active')
-            links[index].classList.add('active')
+        let i: number | string
+        for (i in anchors) {
+          const targetIsVisible = useElementVisibility(anchors[i])
+          const { top } = useElementBounding(anchors[i])
+
+          if (targetIsVisible.value && top.value > 90) {
+            links.filter((item, index) =>
+              index !== i &&
+              item.classList.value.includes('active') &&
+              item.classList.remove('active')
+            )
+            links[i].classList.add('active')
+            break
           }
         }
       }
@@ -94,7 +90,7 @@ onMounted(() => {
 
     <div ref="content" class="relative grid grid-cols-12">
       <div class="col-span-12 lg:col-span-8 flex lg:justify-end">
-        <article class="prose flex-1 pt-8">
+        <article class="prose pt-8">
           <div v-if="page.tags" mb-5>
             <span v-for="tag in page.tags" :key="tag" class="c-#618770 bg-#618770/15 py-1 px-2 mr-2 rounded">
               {{ tag }}
