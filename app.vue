@@ -1,9 +1,5 @@
 <script setup>
 useHead({
-  title: useStore().title,
-  link: [
-    { rel: 'icon', type: 'image/png', href: '/nuxt.png' }
-  ],
   meta: [
     { name: 'referrer', content: 'same-origin' }
   ]

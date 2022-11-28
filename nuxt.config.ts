@@ -6,7 +6,8 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@unocss/nuxt',
     '@nuxtjs/color-mode',
-    '@nuxt/content'
+    '@nuxt/content',
+    '@kevinmarrec/nuxt-pwa'
   ],
   experimental: {
     reactivityTransform: true,
@@ -36,5 +37,25 @@ export default defineNuxtConfig({
   },
   nitro: {
     plugins: ['~/server/plugins/content.ts']
+  },
+  pwa: {
+    workbox: {
+      enabled: true
+    },
+    icon: {
+      fileName: 'avatar.png'
+    },
+    meta: {
+      title: 'Sᴛᴀʀʟoɴɢ💫',
+      author: 'Starlong',
+      description: 'Starlong\'s Blog',
+      lang: 'zh-CN'
+    },
+    manifest: {
+      name: 'Sᴛᴀʀʟoɴɢ💫',
+      short_name: 'Sᴛᴀʀʟoɴɢ',
+      theme_color: '#121518',
+      background_color: '#121518'
+    }
   }
 })

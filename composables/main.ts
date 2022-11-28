@@ -1,7 +1,7 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 
 export const useStore = defineStore('main', () => {
-  const title = ref('Sᴛᴀʀʟᴏɴɢ💫')
+  const title = ref('Sᴛᴀʀʟoɴɢ💫')
   const avatar = ref('/avatar.png')
   const github = ref('https://github.com/6starlong')
 
