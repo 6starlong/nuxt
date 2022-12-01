@@ -30,7 +30,7 @@ export default defineNuxtConfig({
     },
     watch: {
       ws: {
-        // https://github.com/nuxt/content/issues/1631
+      // https://github.com/nuxt/content/issues/1631
         hostname: 'localhost'
       }
     }
@@ -43,7 +43,7 @@ export default defineNuxtConfig({
       enabled: true
     },
     icon: {
-      fileName: 'avatar.png'
+      fileName: 'favicon.png'
     },
     meta: {
       title: 'Sᴛᴀʀʟoɴɢ💫',
