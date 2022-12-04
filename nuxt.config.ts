@@ -1,11 +1,9 @@
-// https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
-  // https://modules.nuxtjs.org/
+  extends: '@nuxt-themes/docus',
   modules: [
     '@vueuse/nuxt',
     '@pinia/nuxt',
     '@unocss/nuxt',
-    '@nuxtjs/color-mode',
     '@nuxt/content',
     '@kevinmarrec/nuxt-pwa'
   ],
@@ -14,15 +12,12 @@ export default defineNuxtConfig({
     // https://github.com/nuxt/framework/issues/8352
     inlineSSRStyles: false
   },
-  // https://uno.antfu.me/
   unocss: {
     preflight: true
   },
-  // https://color-mode.nuxtjs.org/
   colorMode: {
-    classSuffix: ''
+    preference: 'dark'
   },
-  // https://content.nuxtjs.org/api/configuration
   content: {
     documentDriven: true,
     highlight: {
@@ -39,9 +34,6 @@ export default defineNuxtConfig({
     plugins: ['~/server/plugins/content.ts']
   },
   pwa: {
-    workbox: {
-      enabled: true
-    },
     icon: {
       fileName: 'favicon.png'
     },
@@ -54,8 +46,8 @@ export default defineNuxtConfig({
     manifest: {
       name: 'Sᴛᴀʀʟoɴɢ💫',
       short_name: 'Sᴛᴀʀʟoɴɢ',
-      theme_color: '#121518',
-      background_color: '#121518'
+      theme_color: '#0c0c0d',
+      background_color: '#0c0c0d'
     }
   }
 })

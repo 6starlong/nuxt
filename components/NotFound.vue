@@ -18,7 +18,7 @@ const props = defineProps({
   }
 })
 useHead({
-  title: `${props.statusCode} - ${props.statusMessage} | ${props.appName || useStore().title}`
+  title: `${props.statusCode} - ${props.statusMessage}`
 })
 </script>
 

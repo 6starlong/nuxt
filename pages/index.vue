@@ -6,7 +6,7 @@ const { y: scrollY } = useWindowScroll()
 
 <template>
   <main>
-    <section class="relative h-60vh flex flex-center mt--nav">
+    <section class="relative h-60vh flex flex-center mt-[calc(var(--docus-header-height)*-1)]">
       <div v-if="isLoading" i-line-md:loading-loop text-3xl />
       <img
         v-else
@@ -17,11 +17,11 @@ const { y: scrollY } = useWindowScroll()
     </section>
 
     <section class="relative py-10 md:py-20 bg-base">
-      <ContentList v-slot="{ list }" :query="{ path: '/posts', sort: { lastUpdated: -1 } }">
+      <ContentList v-slot="{ list }" :query="{ path: '/posts', where: { _extension: 'md' }, sort: { lastUpdated: -1 } }">
         <div class="container-lg grid gap-8 animate" grid-cols="1 sm:2 lg:3">
           <NuxtLink v-for="post in list" :key="post._path" :to="post._path">
             <div class="post-card group">
-              <div class="relative mb-6 pb-60% rounded-lg overflow-hidden shadow bg-code">
+              <div class="relative mb-6 pb-60% rounded-lg overflow-hidden shadow bg-soft">
                 <time
                   class="absolute z-1 top-4 left-4 inline-block bg-base py-1 px-2 text-sm fw500 rounded pointer-events-none"
                 >

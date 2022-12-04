@@ -1,21 +1,10 @@
-<script setup>
-useHead({
-  meta: [
-    { name: 'referrer', content: 'same-origin' }
-  ]
-})
-</script>
-
 <template>
-  <div id="app">
-    <NuxtProgress />
-    <NavBar />
+  <AppLayout>
     <NuxtPage class="content" />
-    <Footer />
-  </div>
+  </AppLayout>
 </template>
 
 <style>
-@import './assets/main.css';
-@import './assets/prose.css';
+@import './assets/css/main.css';
+@import './assets/css/prose.css';
 </style>

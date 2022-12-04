@@ -1,11 +1,11 @@
 <template>
-  <main class="container-fluid pb10">
-    <div class="space-y-10 my-5">
-      <ContentList v-slot="{ list }" :query="{ path: '/posts', sort: { date: -1 } }">
+  <main>
+    <AppContainer class="space-y-10 py-10">
+      <ContentList v-slot="{ list }" :query="{ path: '/posts', where: { _extension: 'md' }, sort: { date: -1 } }">
         <NuxtLink v-for="post in list" :key="post._path" :to="post._path" class="block max-w-900px mx-auto">
           <div class="post-card h-60 shadow group">
             <div class="cover" bg="cover center" :style="{ backgroundImage: post.image && `url(${post.image})` }" />
-            <div class="cover " :class="post.image ? 'bg-black/25' : 'bg-code'" />
+            <div class="cover " :class="post.image ? 'bg-black/25' : 'bg-soft'" />
             <div
               class="relative z-1 p-8 h-full sm:max-w-1/2 mx-auto text-center color-[#ebebeb] grid place-content-center transition-transform-350 group-hover:translate-y--1"
             >
@@ -26,7 +26,7 @@
           </div>
         </NuxtLink>
       </ContentList>
-    </div>
+    </AppContainer>
   </main>
 </template>
 
