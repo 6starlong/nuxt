@@ -61,7 +61,7 @@ onBeforeUnmount(() => {
   </div>
 
   <!-- eslint-disable-next-line vue/no-multiple-template-root -->
-  <AppContainer padded class="docs-page-content">
+  <Container padded class="docs-page-content">
     <!-- Aside -->
     <aside
       v-if="hasAside"
@@ -131,7 +131,7 @@ onBeforeUnmount(() => {
         </div>
       </div>
     </div>
-  </AppContainer>
+  </Container>
 </template>
 
 <style scoped lang="ts">

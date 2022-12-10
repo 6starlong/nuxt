@@ -1,14 +1,11 @@
 <script setup lang="ts">
 const docus = useDocus()
 const socialIcons = ref(null)
-// const icons = computed(() => docus.value.footer?.iconLinks || [])
-// const socialIconsCount = computed(() => Object.entries(docus.value.socials).filter(([_, v]) => v).length)
-// const nbSocialIcons = computed(() => (socialIcons.value ? socialIconsCount.value : 0))
 </script>
 
 <template>
   <footer>
-    <AppContainer padded class="footer-container">
+    <Container padded class="footer-container">
       <!-- Left -->
       <p v-if="docus.footer?.text" class="left fw500 text-xs op-90">
         {{ docus.footer.text }}
@@ -16,19 +13,9 @@ const socialIcons = ref(null)
 
       <!-- Right -->
       <div class="right">
-        <!-- <a
-          v-for="icon in icons.slice(0, 6 - nbSocialIcons)"
-          :key="icon.label"
-          rel="noopener"
-          :aria-label="icon.label"
-          :href="icon.href"
-          target="_blank"
-        >
-          <Icon :name="icon.icon || icon.component" />
-        </a> -->
         <AppSocialIcons ref="socialIcons" />
       </div>
-    </AppContainer>
+    </Container>
   </footer>
 </template>
 

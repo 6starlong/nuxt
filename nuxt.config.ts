@@ -9,11 +9,7 @@ export default defineNuxtConfig({
   ],
   experimental: {
     reactivityTransform: true,
-    // https://github.com/nuxt/framework/issues/8352
     inlineSSRStyles: false
-  },
-  unocss: {
-    preflight: true
   },
   colorMode: {
     preference: 'dark'
@@ -22,16 +18,7 @@ export default defineNuxtConfig({
     documentDriven: true,
     highlight: {
       theme: 'one-dark-pro'
-    },
-    watch: {
-      ws: {
-      // https://github.com/nuxt/content/issues/1631
-        hostname: 'localhost'
-      }
     }
-  },
-  nitro: {
-    plugins: ['~/server/plugins/content.ts']
   },
   pwa: {
     icon: {

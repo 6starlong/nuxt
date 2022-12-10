@@ -1,8 +1,8 @@
 export default defineAppConfig({
   docus: {
     title: 'Sᴛᴀʀʟoɴɢ💫',
+    image: '/avatar.png',
     url: 'https://starlong.xyz',
-    logo: '/avatar.png',
     socials: {
       github: '6starlong'
     },

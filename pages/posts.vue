@@ -1,6 +1,6 @@
 <template>
   <main>
-    <AppContainer class="space-y-10 py-10">
+    <Container class="space-y-10 py-10">
       <ContentList v-slot="{ list }" :query="{ path: '/posts', where: { _extension: 'md' }, sort: { date: -1 } }">
         <NuxtLink v-for="post in list" :key="post._path" :to="post._path" class="block max-w-900px mx-auto">
           <div class="post-card h-60 shadow group">
@@ -26,7 +26,7 @@
           </div>
         </NuxtLink>
       </ContentList>
-    </AppContainer>
+    </Container>
   </main>
 </template>
 

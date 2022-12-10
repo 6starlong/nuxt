@@ -2,22 +2,23 @@
 const route = useRoute()
 const docus = useDocus()
 
-const { y } = useWindowScroll()
+const { navigation } = useContent()
 const { hasDocSearch } = useDocSearch()
+
+const { y } = useWindowScroll()
 const hasOverlay = computed(() => route.path === '/' && y.value === 0)
 
-const logo = computed(() => docus.value.logo)
+const logo = computed(() => docus.value.image)
 const title = computed(() => docus.value.title)
 
 const hasNavigation = computed(() => !!docus.value.aside?.level)
-const { navigation } = useContent()
 
 const isActive = (link: any) => (link.exact ? route.fullPath === link._path : route.fullPath.startsWith(link._path))
 </script>
 
 <template>
   <header :class="{ 'header--overlay': hasOverlay, 'header--top': y === 0, 'has-doc-search': hasDocSearch }">
-    <AppContainer class="!container-fluid">
+    <Container class="!container-fluid">
       <section class="left">
         <NuxtLink class="navbar-logo" to="/" :aria-label="docus?.title">
           <img v-if="logo" :src="logo">
@@ -53,7 +54,7 @@ const isActive = (link: any) => (link.exact ? route.fullPath === link._path : ro
 
         <AppHeaderDialog />
       </section>
-    </AppContainer>
+    </Container>
   </header>
 </template>
 
