@@ -1,3 +1,7 @@
+<script setup>
+useHead({ title: 'Blog' })
+</script>
+
 <template>
   <main>
     <Container class="space-y-10 py-10">

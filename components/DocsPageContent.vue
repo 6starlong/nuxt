@@ -103,10 +103,7 @@ onBeforeUnmount(() => {
         <slot />
       </div>
 
-      <Alert v-else type="info">
-        Start writing in <ProseCodeInline>content/{{ page._file }}</ProseCodeInline> to see this page taking shape.
-        <NotFound />
-      </Alert>
+      <DocumentDrivenNotFound v-else />
 
       <template v-if="hasBody && page && bottom">
         <!-- TODO: Finish rewrite -->
@@ -189,6 +186,40 @@ css({
     },
     '@lg': {
       marginTop: 0
+    },
+    // `.not-prose` can be useful if creating <h1> with a component (404 page is an example)
+    ':deep(h1:not(.not-prose):first-child)': {
+      marginTop: 0,
+      fontSize: '{text.4xl.fontSize}',
+      lineHeight: '{text.4xl.lineHeight}',
+      '@sm': {
+        fontSize: '{text.5xl.fontSize}',
+        lineHeight: '{text.5xl.lineHeight}',
+      }
+    },
+    // `.not-prose` can be useful if creating <h1> with a component (404 page is an example)
+    ':deep(h1:not(.not-prose)first-child + p)': {
+      marginTop: 0,
+      marginBottom: '{space.8}',
+      paddingBottom: '{space.8}',
+      borderBottom: '1px solid {borders.primary.default}',
+      color: '{color.gray.500}',
+      '@sm': {
+        fontSize: '{text.lg.fontSize}',
+        lineHeight: '{text.lg.lineHeight}',
+      },
+      '@dark': {
+        color: '{color.gray.400}',
+      },
+      a: {
+        color: '{color.gray.700}',
+        '@dark': {
+          color: '{color.gray.200}',
+        },
+        "&:hover": {
+          borderColor: '{color.gray.700}'
+        }
+      }
     },
     '.docs-prev-next': {
       marginTop: '{space.4}'

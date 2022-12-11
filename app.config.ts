@@ -1,8 +1,10 @@
 export default defineAppConfig({
   docus: {
     title: 'Sᴛᴀʀʟoɴɢ💫',
-    image: '/avatar.png',
+    description: 'Starlong\'s Blog',
+    author: 'Starlong',
     url: 'https://starlong.xyz',
+    image: '/avatar.png',
     socials: {
       github: '6starlong'
     },

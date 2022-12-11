@@ -24,12 +24,6 @@ export default defineNuxtConfig({
     icon: {
       fileName: 'favicon.png'
     },
-    meta: {
-      title: 'Sᴛᴀʀʟoɴɢ💫',
-      author: 'Starlong',
-      description: 'Starlong\'s Blog',
-      lang: 'zh-CN'
-    },
     manifest: {
       name: 'Sᴛᴀʀʟoɴɢ💫',
       short_name: 'Sᴛᴀʀʟoɴɢ',

@@ -12,7 +12,7 @@ backend:
 publish_mode: editorial_workflow
 media_folder: public/images
 public_folder: /images
-display_url: https://nuxt.starlong.xyz
+display_url: https://starlong.xyz
 locale: zh_Hans
 collections:
   - name: posts

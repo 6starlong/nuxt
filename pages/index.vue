@@ -1,4 +1,6 @@
 <script setup>
+useHead({ title: useDocus().value.title, titleTemplate: '' })
+
 const heroUrl = '/images/hero.png'
 const { isLoading } = useImage({ src: heroUrl })
 const { y: scrollY } = useWindowScroll()
