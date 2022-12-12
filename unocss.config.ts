@@ -16,15 +16,15 @@ export default defineConfig({
       'container-lg': 'max-w-320 w-full mx-auto px-4 sm:px-6 lg:px-8',
       'container-fluid': 'max-w-full w-full mx-auto px-4 sm:px-6 lg:px-8',
       // colors
-      'bg-base': 'bg-[var(--color-white)] dark:bg-[var(--color-black)]',
-      'bg-soft': 'bg-[var(--color-gray-100)] dark:bg-[var(--color-gray-900)]',
-      'color-text': 'text-[var(--color-gray-500)] dark:text-[var(--color-gray-400)]',
-      'color-primary': 'text-[var(--color-primary-500)]',
+      'bg-base': 'bg-$color-white dark:bg-$color-black',
+      'bg-soft': 'bg-$color-gray-100 dark:bg-$color-gray-900',
+      'color-text': 'text-$color-gray-500 dark:text-$color-gray-400',
       // components
       'post-card': 'relative transition-transform-350 hover:translate-y--1',
       'post-card-title': 'mb-3 text-2xl fw700 underline decoration-2 transition-350 decoration-transparent group-hover:decoration-current'
     },
-
+    [/^badge$/, () => 'bg-soft rounded px3 py0.8'],
+    [/^badge-(.*)$/, ([, c]) => `bg-${c}4:10 text-${c}5 rounded px3 py0.8`],
     [/^flex-between/g, () => 'justify-between'],
     [/^(flex|grid)-center/g, () => 'justify-center items-center'],
     [/^(flex|grid)-x-center/g, () => 'justify-center'],

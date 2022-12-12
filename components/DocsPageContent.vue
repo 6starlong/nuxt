@@ -84,8 +84,8 @@ onBeforeUnmount(() => {
       <!-- content -->
       <div v-if="hasBody" class="prose animate">
         <!-- tags -->
-        <div v-if="page.tags" class="flex mb-5">
-          <span v-for="tag in page.tags" :key="tag" class="c-#618770 bg-#618770/15 py-1 px-2 mr-2 rounded">
+        <div v-if="page.tags" class="mb-5 flex gap-2">
+          <span v-for="tag in page.tags" :key="tag" class="badge text-sm transition hover:translate-y--2px ">
             {{ tag }}
           </span>
         </div>
@@ -93,7 +93,7 @@ onBeforeUnmount(() => {
         <div v-if="page.title" class="mb-8">
           <h1>{{ page.title }}</h1>
 
-          <p v-if="page.date" class="op-50">
+          <p v-if="page.date" class="color-text">
             {{ useDateFormat(page.date, 'YYYY-MM-DD').value }}
             <span v-if="page.duration"> · {{ page.duration }}</span>
             <span v-if="page.lastUpdated" ml-2> Updated on {{ useTimeAgo(page.lastUpdated).value }}</span>
