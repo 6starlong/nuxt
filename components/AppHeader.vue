@@ -7,28 +7,35 @@ const { hasDocSearch } = useDocSearch()
 
 const { y } = useWindowScroll()
 const hasOverlay = computed(() => route.path === '/' && y.value === 0)
+const hasTop = computed(() => y.value === 0)
 
-const logo = computed(() => docus.value.image)
-const title = computed(() => docus.value.title)
+const logo = computed(() => docus.value.header?.logo || docus.value.image)
+const title = computed(() => docus.value.header?.title || docus.value.title)
 
 const hasNavigation = computed(() => !!docus.value.aside?.level)
+
+const hasDialog = computed(() => navigation.value?.length > 1)
 
 const isActive = (link: any) => (link.exact ? route.fullPath === link._path : route.fullPath.startsWith(link._path))
 </script>
 
 <template>
-  <header :class="{ 'header--overlay': hasOverlay, 'header--top': y === 0, 'has-doc-search': hasDocSearch }">
-    <Container class="!container-fluid">
-      <section class="left">
-        <NuxtLink class="navbar-logo" to="/" :aria-label="docus?.title">
+  <header
+    :class="{
+      'has-overlay': hasOverlay,
+      'has-top': hasTop,
+      'has-dialog': hasDialog,
+      'has-doc-search': hasDocSearch }"
+  >
+    <Container fluid>
+      <div class="section left">
+        <NuxtLink class="navbar-logo" to="/" :aria-label="title">
           <img v-if="logo" :src="logo">
           <span>{{ title }}</span>
         </NuxtLink>
-      </section>
+      </div>
 
-      <section class="right">
-        <AppSearch v-if="hasDocSearch" />
-
+      <div class="section right">
         <nav v-if="hasNavigation">
           <ul>
             <li
@@ -47,13 +54,14 @@ const isActive = (link: any) => (link.exact ? route.fullPath === link._path : ro
           </ul>
         </nav>
 
-        <div class="icons">
-          <ThemeSelect />
+        <AppSearch v-if="hasDocSearch" />
+        <ThemeSelect />
+        <div class="social-icons">
           <AppSocialIcons />
         </div>
 
         <AppHeaderDialog />
-      </section>
+      </div>
     </Container>
   </header>
 </template>
@@ -65,17 +73,14 @@ css({
     height: '{space.4}'
   },
 
-  '.icons': {
-    display: 'none',
-    gap: '{space.4}',
-    '@sm': {
-      display: 'flex'
-    }
+  ':deep(a), :deep(button)': {
+    padding: '{space.2}'
   },
 
   '.navbar-logo': {
     display: 'flex',
     alignItems: 'center',
+    flex: 'none',
     transition: 'opacity 200ms ease',
 
     'img': {
@@ -86,7 +91,6 @@ css({
     'span':{
       fontSize: '{fontSize.sm}',
       fontWeight: '{fontWeight.medium}',
-      flexShrink: '0'
     },
     '&:hover': {
       opacity: '0.7'
@@ -104,9 +108,7 @@ css({
       justifyContent: 'center',
       flex: '1',
       maxWidth: '100%',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      whiteSpace: 'nowrap',
+      truncate: true,
 
       '& > * + *': {
         marginLeft: '{space.2}'
@@ -148,28 +150,24 @@ css({
   },
 
   header: {
-    backdropFilter: '{backdrop.filter}',
+    backdropFilter: '{elements.backdrop.filter}',
     position: 'sticky',
     top: 0,
     zIndex: 10,
     width: '100%',
-    borderBottom: '1px solid {color.gray.100}',
-    backgroundColor: '{backdrop.background}',
+    borderBottom: '1px solid {elements.border.primary.default}',
+    backgroundColor: '{elements.backdrop.background}',
     height: '{docus.header.height}',
 
-    '@dark': {
-      borderBottom: '1px solid {color.gray.900}',
-    },
-
-    '&.header--overlay': {
+    '&.has-overlay': {
       color: '{color.gray.200}',
       backgroundColor: 'transparent',
       backdropFilter: 'none',
-      '& nav ul .link:hover': {
+      '& nav .link:hover': {
           backgroundColor: '{color.gray.900}',
         },
-      '& .icons :deep(a), & button': {
-        color: '{color.gray.50} !important',
+      '& :deep(.icon)': {
+        color: '{color.gray.50}',
         opacity: 0.7,
         '&:hover': {
           opacity: 1
@@ -177,7 +175,7 @@ css({
       },
     },
 
-    '&.header--top': {
+    '&.has-top': {
       borderBottom: '1px solid transparent !important',
       backdropFilter: 'none'
     },
@@ -186,23 +184,31 @@ css({
       display: 'grid',
       height: '100%',
       gridTemplateColumns: 'repeat(12, minmax(0, 1fr))',
-      gap: '2rem'
+      gap: '{space.2}',
+      maxWidth: '100%'
     },
 
-    section: {
+    '.section': {
       display: 'flex',
       alignItems: 'center',
       flex: 'none',
       '&.left': {
-        gridColumn: 'span 4 / span 4',
+        gridColumn: 'span 6 / span 6'
       },
       '&.right': {
         display: 'flex',
+        gridColumn: 'span 6 / span 6',
         justifyContent: 'flex-end',
         alignItems: 'center',
-        flex: '1',
-        gridColumn: 'span 8 / span 8',
-        gap: '{space.4}'
+        flex: 'none',
+        gap: '{space.1}',
+        '.social-icons': {
+          display: 'none',
+          '@md': {
+            display: 'flex',
+            alignItems: 'center',
+          }
+        }
       }
     }
   }
@@ -213,5 +219,10 @@ css({
 .dialog > div {
   position: absolute;
   right: 0;
+}
+
+.dialog .icons button,
+.dialog .icons a {
+  padding: 0 !important;
 }
 </style>

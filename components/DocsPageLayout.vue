@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { page, navigation } = useContent()
 const route = useRoute()
+const docus = useDocus()
 
 const fallbackValue = (value: string, fallback = true) => {
   if (typeof page.value?.[value] !== 'undefined') {
@@ -14,7 +15,7 @@ const hasBody = computed(() => !page.value || page.value?.body?.children?.length
 const hasToc = computed(() => page.value?.toc !== false && page.value?.body?.toc?.links?.length >= 2)
 
 // TODO: get navigation links from aside level
-const hasAside = computed(() => page.value?.aside === true && navigation.value?.length > 0)
+const hasAside = computed(() => page.value?.aside && navigation.value?.length > 0)
 const bottom = computed(() => fallbackValue('bottom', true))
 const isOpen = ref(false)
 
@@ -56,18 +57,14 @@ onBeforeUnmount(() => {
 
 <template>
   <!-- hero -->
-  <div class="container-fluid">
-    <img v-if="page.image" :src="page.image" class="w-1/1 h-75 object-cover rounded-lg">
+  <div v-if="page?.image" class="container-fluid">
+    <img :src="page.image" class="w-1/1 h-75 object-cover rounded-lg">
   </div>
 
   <!-- eslint-disable-next-line vue/no-multiple-template-root -->
-  <Container padded class="docs-page-content">
+  <Container :fluid="docus?.layout?.fluid" padded class="docs-page-content" :class="[docus?.layout?.fluid && 'fluid']">
     <!-- Aside -->
-    <aside
-      v-if="hasAside"
-      ref="asideNav"
-      class="aside-nav"
-    >
+    <aside v-if="hasAside" ref="asideNav" class="aside-nav">
       <DocsAside />
     </aside>
 
@@ -75,14 +72,11 @@ onBeforeUnmount(() => {
     <article
       class="page-body"
       :class="{
-        'one-column': !hasAside && !hasToc,
-        'two-column': (!hasToc || !hasAside) && !(!hasAside && !hasToc),
-        'three-column': hasToc && hasAside,
         'with-toc': hasToc,
       }"
     >
       <!-- content -->
-      <div v-if="hasBody" class="prose animate">
+      <div v-if="hasBody && page" class="prose animate">
         <!-- tags -->
         <div v-if="page.tags" class="mb-5 flex gap-2">
           <span v-for="tag in page.tags" :key="tag" class="badge text-sm transition hover:translate-y--2px ">
@@ -113,10 +107,7 @@ onBeforeUnmount(() => {
     </article>
 
     <!-- TOC -->
-    <div
-      v-if="hasToc"
-      class="toc"
-    >
+    <div v-if="hasToc" class="toc">
       <div class="toc-wrapper">
         <button @click="isOpen = !isOpen">
           <span class="title">Table of Contents</span>
@@ -137,7 +128,6 @@ css({
     position: 'relative',
     display: 'flex',
     flexDirection: 'column-reverse',
-    minHeight: '{docus.page.height}',
     '@lg': {
       display: 'grid',
       gap: '{space.8}',
@@ -151,10 +141,14 @@ css({
       display: 'block',
       position: 'sticky',
       top: '{docus.header.height}',
-      gridColumn: 'span 2/span 2',
+      // gridColumn: 'span 2/span 2',
       alignSelf: 'flex-start',
       height: 'calc(100vh - {docus.header.height})',
       py: '{space.8}',
+      paddingRight: '{space.8}',
+      '.fluid &&': {
+        borderRight: '1px solid {elements.border.primary.default}',
+      }
     }
   },
   '.page-body': {
@@ -163,23 +157,12 @@ css({
     flexDirection: "column",
     flex: '1 1 0%',
     py: '{space.8}',
-    '&.one-column': {
-      '@lg': {
-        gridColumn: 'span 12 / span 12'
-      }
-    },
-    '&.two-column': {
-      '@lg': {
-        gridColumn: 'span 10 / span 10'
-      }
-    },
-    '&.three-column': {
-      '@lg': {
-        gridColumn: 'span 8 / span 8'
-      }
-    },
+    width: '100%',
+    // maxWidth: '{docus.readableLine}',
+    mx: 'auto',
+    gridColumn: 'span 10 / span 10',
     '&.with-toc': {
-      paddingTop: '{space.4}',
+      paddingTop: '{space.12}',
       '@lg': {
         paddingTop: '{space.8}',
       }
@@ -202,7 +185,7 @@ css({
       marginTop: 0,
       marginBottom: '{space.8}',
       paddingBottom: '{space.8}',
-      borderBottom: '1px solid {borders.primary.default}',
+      borderBottom: '1px solid {elements.border.primary.default}',
       color: '{color.gray.500}',
       '@sm': {
         fontSize: '{text.lg.fontSize}',
@@ -229,43 +212,50 @@ css({
     position: 'sticky',
     top: '{docus.header.height}',
     display: 'flex',
-    alignItems: 'center',
     mx: 'calc(0px - {space.4})',
+    overflow: 'auto',
+    borderBottom: '1px solid {elements.border.primary.default}',
     '@sm': {
       mx: 'calc(0px - {space.6})',
     },
     '@lg': {
-      maxHeight: '{docus.page.height}',
+      top: '{docus.header.height}',
       gridColumn: 'span 2 / span 2',
       mx: 0,
       alignSelf: 'flex-start',
       py: '{space.8}',
+      height: 'calc(100vh - {docus.header.height})',
+      maxHeight: 'none',
+      borderBottom: 'none',
+      '.fluid &&': {
+        borderLeft: '1px solid {elements.border.primary.default}',
+      }
     },
     '.toc-wrapper': {
       width: '100%',
-      backdropFilter: '{backdrop.filter}',
-      backgroundColor: '{backdrop.background}',
-      px: '{space.4}',
-      '@sm': {
-        px: '{space.8}',
-      },
+      height: '100%',
+      backdropFilter: '{elements.backdrop.filter}',
+      backgroundColor: '{elements.backdrop.background}',
       '@lg': {
-        px: 0,
         backgroundColor: 'transparent',
         backdropFilter: 'none'
       },
       button: {
         display: 'flex',
         alignItems: 'center',
-        py: '{space.3}',
         width: '100%',
         height: '100%',
+        py: '{space.4}',
+        px: '{space.4}',
+        '@sm': {
+          px: '{space.6}',
+        },
         '@lg': {
           display: 'none'
         },
         '.title': {
-          fontSize: '{text.xs.fontSize}',
-          lineHeight: '{text.xs.lineHeight}',
+          fontSize: '{text.sm.fontSize}',
+          lineHeight: '{text.sm.lineHeight}',
           fontWeight: '{fontWeight.semibold}',
           marginRight: '{space.1}',
         },
@@ -282,7 +272,17 @@ css({
         display: 'none',
         marginBottom: '{space.4}',
         '&.opened': {
-          display: 'block'
+          display: 'block',
+          px: '{space.4}',
+          maxHeight: '50vh',
+          overflow: 'auto',
+          '@sm': {
+            px: '{space.6}',
+          },
+          '@lg': {
+            maxHeight: 'none',
+            px: 0,
+          },
         },
         '@lg': {
           marginTop: 0,

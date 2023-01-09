@@ -1,5 +1,6 @@
-main.content {
-  min-height: calc(100vh - var(--docus-header-height) - var(--docus-footer-height));
+main.content,
+.document-driven-page.content {
+  min-height: calc(100vh - var(--docus-header-height) - 49px);
 }
 
 ::-webkit-scrollbar,
@@ -23,4 +24,3 @@ main.content {
     transform: translate(0px, 0px);
   }
 }
-
