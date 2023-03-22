@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  extends: '@nuxt-themes/docus',
+  extends: ['@nuxt-themes/docus'],
   modules: [
     '@vueuse/nuxt',
     '@pinia/nuxt',
@@ -24,9 +24,15 @@ export default defineNuxtConfig({
     icon: {
       fileName: 'favicon.png'
     },
+    meta: {
+      lang: 'zh-CN',
+      author: 'Sᴛᴀʀʟᴏɴɢ',
+      ogTitle: 'Sᴛᴀʀʟᴏɴɢ💫',
+      ogSiteName: 'https://starlong.xyz'
+    },
     manifest: {
-      name: 'Sᴛᴀʀʟoɴɢ💫',
-      short_name: 'Sᴛᴀʀʟoɴɢ',
+      name: 'Sᴛᴀʀʟᴏɴɢ💫',
+      short_name: 'Sᴛᴀʀʟᴏɴɢ',
       theme_color: '#0c0c0d',
       background_color: '#0c0c0d'
     }

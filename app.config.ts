@@ -1,19 +1,25 @@
 export default defineAppConfig({
   docus: {
-    title: 'Sᴛᴀʀʟoɴɢ💫',
-    description: 'Starlong\'s Blog',
-    author: 'Starlong',
-    url: 'https://starlong.xyz',
+    title: 'Sᴛᴀʀʟᴏɴɢ💫',
+    description: "Starlong's Blog",
     image: '/avatar.png',
     socials: {
       github: '6starlong'
     },
+    layout: 'default',
     aside: {
       level: 1
     },
+    header: {
+      title: '',
+      logo: false
+    },
     footer: {
-      credits: false,
-      text: '2022-PRESENT © Powered by Sᴛᴀʀʟoɴɢ💫'
+      credits: {
+        icon: '',
+        text: '2022-PRESENT © Powered by Sᴛᴀʀʟᴏɴɢ💫',
+        href: ''
+      }
     }
   }
 })

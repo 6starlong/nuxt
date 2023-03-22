@@ -1,5 +1,7 @@
 <script setup>
-useHead({ title: useDocus().value.title, titleTemplate: '' })
+import { useImage } from '@vueuse/core'
+
+// useHead({ title: useDocus().value.title, titleTemplate: '' })
 
 const heroUrl = '/images/hero.png'
 const { isLoading } = useImage({ src: heroUrl })
