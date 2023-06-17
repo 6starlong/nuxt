@@ -1,40 +1,33 @@
 export default defineNuxtConfig({
-  extends: ['@nuxt-themes/docus'],
+  // extends: ['@nuxt-themes/typography'],
   modules: [
-    '@vueuse/nuxt',
+    '@nuxt/content',
     '@pinia/nuxt',
     '@unocss/nuxt',
-    '@nuxt/content',
-    '@kevinmarrec/nuxt-pwa'
+    '@vueuse/nuxt',
+    'nuxt-icon'
+    // 'pinceau/nuxt'
+    // 'vue3-notion/nuxt'
   ],
   experimental: {
     reactivityTransform: true,
     inlineSSRStyles: false
+    // payloadExtraction: false
   },
-  colorMode: {
-    preference: 'dark'
-  },
-  content: {
-    documentDriven: true,
-    highlight: {
-      theme: 'one-dark-pro'
-    }
-  },
-  pwa: {
-    icon: {
-      fileName: 'favicon.png'
-    },
-    meta: {
-      lang: 'zh-CN',
-      author: 'Sᴛᴀʀʟᴏɴɢ',
-      ogTitle: 'Sᴛᴀʀʟᴏɴɢ💫',
-      ogSiteName: 'https://starlong.xyz'
-    },
-    manifest: {
-      name: 'Sᴛᴀʀʟᴏɴɢ💫',
-      short_name: 'Sᴛᴀʀʟᴏɴɢ',
-      theme_color: '#0c0c0d',
-      background_color: '#0c0c0d'
+  css: ['@unocss/reset/tailwind.css'],
+  ssr: false,
+  nitro: {
+    devProxy: {
+      '/v3': {
+        target: 'https://www.notion.so/api/v3',
+        // target: 'https://starlong.notion.site/api/v3',
+        changeOrigin: true
+        // 'Notion-Version': '2022-06-28',
+        // Authorization: `Bearer ${process.env.NOTION_API_KEY}`
+      }
     }
   }
+  // colorMode: {
+  //   preference: 'dark'
+  // }
 })

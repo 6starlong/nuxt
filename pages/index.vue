@@ -1,48 +1,147 @@
 <script setup>
-import { useImage } from '@vueuse/core'
+// const chunk = await $fetch('/api/chunk')
 
-// useHead({ title: useDocus().value.title, titleTemplate: '' })
+// const { rootId } = useAppConfig()
+const rootId = 'a8542f6f-39af-4b1e-b174-4c268db31da9'
+const { data: collection } = await useAsyncData('loadPageChunk', async () => {
+  const { recordMap } = await $fetch('/v3/loadCachedPageChunk', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: {
+      page: {
+        id: rootId
+      },
+      limit: 30,
+      cursor: {
+        stack: []
+      },
+      chunkNumber: 0,
+      verticalColumns: false
+    }
+  })
 
-const heroUrl = '/images/hero.png'
-const { isLoading } = useImage({ src: heroUrl })
-const { y: scrollY } = useWindowScroll()
+  const collectionViewPage = recordMap.block[rootId].value
+  const collection = recordMap.collection[collectionViewPage.collection_id].value
+  collection.viewIds = collectionViewPage.view_ids
+
+  return collection
+})
+
+const { data: posts } = await useAsyncData('queryCollection', async () => {
+  const { id: collectionId, space_id: spaceId, viewIds } = collection.value
+
+  const { recordMap } = await $fetch('/v3/queryCollection?src=reset', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: {
+      source: {
+        type: 'collection',
+        id: collectionId,
+        spaceId
+      },
+      collectionView: {
+        id: viewIds[0],
+        spaceId
+      },
+      loader: {
+        type: 'reducer',
+        reducers: {
+          collection_group_results: {
+            type: 'results',
+            limit: 50,
+            loadContentCover: false
+          }
+        },
+        sort: [],
+        searchQuery: '',
+        userTimeZone: 'Asia/Shanghai'
+      }
+    }
+  })
+
+  return Object.values(recordMap.block)
+    .filter(item => item.value.type === 'page')
+    .map(item => item.value)
+})
+
+const tagProperty = collection.value.format.collection_page_properties.find(i => i.visible).property
+const tagOptions = collection.value.schema[tagProperty].options
+
+const getPageCover = (block) => {
+  if (block.format.page_cover?.startsWith('http')) {
+    return 'https://starlong.notion.site/image/' + encodeURIComponent(block.format.page_cover)
+  }
+  return 'https://starlong.notion.site' + block.format.page_cover
+}
+
+const getPageIcon = (block) => {
+  if (block.format.page_icon?.startsWith('/icons')) {
+    return 'https://starlong.notion.site' + block.format.page_icon
+  }
+  return block.format.page_icon
+}
+
+const getPageTitle = (block) => {
+  return block.properties?.title?.[0][0]
+}
+
+const getPageTags = (block) => {
+  return tagOptions.filter(t => block.properties?.[tagProperty]?.[0][0].includes(t.value))
+}
 </script>
 
 <template>
-  <main>
-    <section class="relative h-60vh flex flex-center mt-[calc(var(--docus-header-height)*-1)]">
-      <div v-if="isLoading" i-line-md:loading-loop text-3xl />
-      <img
-        v-else
-        class="w-full h-full object-cover"
-        :src="heroUrl"
-        :style="{ transform: `translateY(${(~~(scrollY / 99 * 33) || 0)}px)` }"
-      >
-    </section>
+  <main class="pb-20 container">
+    <div class="mb-10 mt-5 space-y-4">
+      <p>Hello World 👋</p>
+      <p>I'm Starlong, an entrepreneur & software developer who loves open source.</p>
+      <p>You can find me on Twitter and GitHub — check out my bio for more info.</p>
+    </div>
 
-    <section class="relative py-10 md:py-20 bg-base">
-      <ContentList v-slot="{ list }" :query="{ path: '/posts', where: { _extension: 'md' }, sort: { lastUpdated: -1 } }">
-        <div class="container-lg grid gap-8 animate" grid-cols="1 sm:2 lg:3">
-          <NuxtLink v-for="post in list" :key="post._path" :to="post._path">
-            <div class="post-card group">
-              <div class="relative mb-6 pb-60% rounded-lg overflow-hidden shadow bg-soft">
-                <time
-                  class="absolute z-1 top-4 left-4 inline-block bg-base py-1 px-2 text-sm fw500 rounded pointer-events-none"
-                >
-                  {{ useDateFormat(post.date, 'YYYY-MM-DD').value }}
-                </time>
-                <img v-if="post.image" :src="post.image" class="absolute w-full h-full object-cover">
-              </div>
-              <h2 class="post-card-title">
-                {{ post.title }}
-              </h2>
-              <p class="color-text line-clamp-2">
-                {{ post.description }}
-              </p>
-            </div>
-          </nuxtlink>
+    <div class="border-b animate">
+      <div class="h-12 text-6 fw600 lh-12">
+        Blog Posts
+      </div>
+    </div>
+
+    <div class="relative grid grid-cols-card min-h-25vh gap-8 pb-2 pt-6">
+      <NuxtLink
+        v-for="item in posts"
+        :key="item.id"
+        :to="item.id"
+        class="flex flex-col overflow-hidden rounded bg-soft animate"
+      >
+        <div class="h-50 w-100% overflow-hidden">
+          <img
+            :src="getPageCover(item)"
+            class="h-50 w-100% object-cover transition duration-350 ease-out hover:scale-120"
+          >
         </div>
-      </ContentList>
-    </section>
+
+        <div class="flex-1 hover:bg-mute p-2.5 transition duration-350">
+          <div
+            class="relative flex py-2 decoration-transparent transition duration-350 hover:(underline decoration-current)"
+          >
+            <div class="float-left mr-1 h-6 w-6">
+              <img v-if="getPageIcon(item).startsWith('http')" :src="getPageIcon(item)">
+              <span v-else>{{ getPageIcon(item) }}</span>
+            </div>
+            <div class="max-w-100% min-h-6 break-words fw-500 lh-[1.5] line-clamp-3">
+              {{ getPageTitle(item) }}
+            </div>
+          </div>
+
+          <div class="p-1 text-xs">
+            {{ useDateFormat(item.create_time, 'YYYY-MM-DD').value }}
+          </div>
+
+          <div class="flex gap-1.5 py-1">
+            <div v-for="tag in getPageTags(item)" :key="tag.id" :class="`!text-xs badge badge-${tag.color}`">
+              {{ tag.value }}
+            </div>
+          </div>
+        </div>
+      </NuxtLink>
+    </div>
   </main>
 </template>

@@ -4,19 +4,19 @@ useHead({ title: 'Blog' })
 
 <template>
   <main>
-    <Container class="space-y-10 py-10">
+    <Container class="py-10 space-y-10">
       <ContentList v-slot="{ list }" :query="{ path: '/posts', where: { _extension: 'md' }, sort: { date: -1 } }">
-        <NuxtLink v-for="post in list" :key="post._path" :to="post._path" class="block max-w-900px mx-auto">
-          <div class="post-card h-60 shadow group">
+        <NuxtLink v-for="post in list" :key="post._path" :to="post._path" class="mx-auto block max-w-900px">
+          <div class="group post-card h-60 shadow">
             <div class="cover" bg="cover center" :style="{ backgroundImage: post.image && `url(${post.image})` }" />
-            <div class="cover " :class="post.image ? 'bg-black/25' : 'bg-soft'" />
+            <div class="cover" :class="post.image ? 'bg-black/25' : 'bg-soft'" />
             <div
-              class="relative z-1 p-8 h-full sm:max-w-1/2 mx-auto text-center color-[#ebebeb] grid place-content-center transition-transform-350 group-hover:translate-y--1"
+              class="relative z-1 grid mx-auto h-full place-content-center p-8 text-center color-[#ebebeb] transition-transform-350 sm:max-w-1/2 group-hover:translate-y--1"
             >
               <h2 class="post-card-title color-[#fafafa]">
                 {{ post.title }}
               </h2>
-              <p class="line-clamp-2 mb-1">
+              <p class="mb-1 line-clamp-2">
                 {{ post.description }}
               </p>
               <p v-if="post.date" class="text-sm">

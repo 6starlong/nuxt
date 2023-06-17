@@ -1,6 +1,6 @@
 {
   "private": true,
-  "packageManager": "pnpm@7.30.0",
+  "packageManager": "pnpm@8.2.0",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -9,28 +9,42 @@
     "postinstall": "nuxt prepare && simple-git-hooks",
     "lint": "eslint --ext .ts,.js,.vue ."
   },
+  "dependencies": {
+    "notion-client": "^6.16.0",
+    "notion-utils": "^6.16.0",
+    "pinceau": "^0.18.9",
+    "prismjs": "^1.29.0",
+    "shiki-es": "^0.2.0",
+    "vue-notion": "^1.5.1",
+    "vue3-notion": "^0.1.40"
+  },
   "devDependencies": {
     "@gr2m/gray-matter": "4.0.3-with-pr-137",
-    "@iconify-json/line-md": "^1.1.23",
-    "@kevinmarrec/nuxt-pwa": "^0.17.0",
-    "@nuxt-themes/docus": "^1.9.9",
+    "@notionhq/client": "^2.2.4",
+    "@nuxt-themes/docus": "^1.10.1",
+    "@nuxt-themes/elements": "^0.9.4",
+    "@nuxt-themes/typography": "^0.11.0",
     "@nuxt/content": "^2.5.2",
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
     "@octokit/core": "^4.2.0",
-    "@pinia/nuxt": "^0.4.7",
+    "@pinia/nuxt": "^0.4.8",
     "@types/cross-spawn": "^6.0.2",
-    "@unocss/nuxt": "^0.50.6",
-    "@vueuse/nuxt": "^9.13.0",
+    "@types/node": "^18.15.11",
+    "@unocss/eslint-config": "^0.51.4",
+    "@unocss/nuxt": "^0.51.4",
+    "@unocss/preset-rem-to-px": "^0.51.4",
+    "@vueuse/nuxt": "^10.0.2",
     "cross-spawn": "^7.0.3",
-    "eslint": "^8.36.0",
+    "eslint": "^8.38.0",
     "gray-matter": "^4.0.3",
     "js-base64": "^3.7.5",
-    "lint-staged": "^13.2.0",
-    "nuxt": "^3.3.1",
-    "pinia": "^2.0.33",
-    "pnpm": "^7.30.0",
+    "lint-staged": "^13.2.1",
+    "nuxt": "^3.4.1",
+    "nuxt-icon": "^0.3.3",
+    "pinia": "^2.0.34",
+    "pnpm": "^8.2.0",
     "simple-git-hooks": "^2.8.1",
-    "typescript": "^5.0.2"
+    "typescript": "^5.0.4"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
